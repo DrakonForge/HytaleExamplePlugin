@@ -1,4 +1,4 @@
-package org.example;
+package org.example.plugin;
 
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.newcmdsystem.CommandContext;

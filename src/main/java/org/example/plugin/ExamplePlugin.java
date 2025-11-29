@@ -1,4 +1,4 @@
-package org.example;
+package org.example.plugin;
 
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.Message;
