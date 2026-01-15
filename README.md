@@ -25,9 +25,20 @@ download the entire repository as a `.zip` file and then begin using it.
 
 This will ensure you are not making commits to the template repository and can create your own.
 
-### Connecting to Git
+### Initializing Git
 
-You should be using version control such as Git/GitHub for your mods. Start with `git init` to create
+You should be using version control such as Git/GitHub for your mods. First, create an **empty** 
+GitHub repository for your mod. Then open a command terminal in  your mod folder, and run the following:
+
+```
+git init
+git add -A
+git commit -m "Initial commit"
+git remote add origin <link to GitHub repository>
+git push --set-upstream origin main
+```
+
+Start with `git init` to create
 a local git repository, then connect it to a remote GitHub repository.
 
 ## Configuring Template
