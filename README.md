@@ -1,15 +1,12 @@
 # Hytale Example Plugin
 
-An example project that can build and run plugins for the game Hytale!
+*This example plugin has been forked from https://github.com/Build-9/Hytale-Example-Project*
 
-> **⚠️ Warning: Early Access**    
-> The game Hytale is in early access, and so is this project! Features may be
-> incomplete, unstable, or change frequently. Please be patient and understanding as development
-> continues.
+An example project that can build and run plugins for Hytale.
 
 ## Introduction
 This project contains a Gradle project that can be imported into IDEA and used
-as the foundation for custom Hytale plugins. The template will add the Hytale
+as the foundation for custom Hytale plugins. The template adds the Hytale
 server to your classpath and create a run configuration that can be used to
 run your plugin on the server. It can also be used to build a sharable JAR file
 that contains your plugin.
@@ -18,21 +15,33 @@ that contains your plugin.
 Please ensure all the requirements are met before getting started.
 
 1. Download Hytale using the official launcher.
-2. Have Intellij IDEA installed. Community edition is fine.
+2. Download IntelliJ IDEA.
 3. Download Java 25 and set it as the SDK in IDEA.
+
+## Downloading Template
+
+It is highly recommended to **download** these files instead of cloning them. In GitHub, you can
+download the entire repository as a `.zip` file and then begin using it.
+
+This will ensure you are not making commits to the template repository and can create your own.
+
+### Connecting to Git
+
+You should be using version control such as Git/GitHub for your mods. Start with `git init` to create
+a local git repository, then connect it to a remote GitHub repository.
 
 ## Configuring Template
 It is important to configure the project before using it as a template. Doing
 this before importing the project will help avoid running into caching issues
 later on.
 
-### 1: Project Name
+### 1. Project Name
 Set the name of the project in `settings.gradle`. This should be the name of
 your plugin. We recommend capitalizing your project name and avoiding 
 whitespace and most special characters. This will be used as the base name for
 any files produced by Gradle, like the sharable JAR file.
 
-### 2: Gradle Properties
+### 2. Gradle Properties
 Review the properties defined in `gradle.properties`. You should change the 
 `maven_group` to match your project. You should also change the `version`
 property before making a new release, or set up CI/CD to automate it.

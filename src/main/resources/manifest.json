@@ -1,22 +1,19 @@
 {
-    "Group": "Example",
+    "Group": "io.github.drakonforge",
     "Name": "ExamplePlugin",
-    "Version": "0.0.1",
-    "Description": "An example plugin for HyTale!",
+    "Version": "1.0.0",
+    "Description": "An example plugin for Hytale modding.",
     "Authors": [
         {
-            "Name": "It's you!"
+            "Name": "Drakon",
+            "Url": "https://github.com/Drakonkinst"
         }
     ],
-    "Website": "example.org",
+    "Website": "https://github.com/DrakonForge",
     "ServerVersion": "*",
-    "Dependencies": {
-        
-    },
-    "OptionalDependencies": {
-        
-    },
+    "Dependencies": {},
+    "OptionalDependencies": {},
     "DisabledByDefault": false,
-    "Main": "org.example.plugin.ExamplePlugin",
-    "IncludesAssetPack": true
+    "IncludesAssetPack": true,
+    "Main": "io.github.drakonforge.ExamplePlugin"
 }
