@@ -1,4 +1,4 @@
-package io.github.drakonforge;
+package io.github.drakonforge.exampleplugin;
 
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;

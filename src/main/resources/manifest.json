@@ -11,9 +11,13 @@
     ],
     "Website": "https://github.com/DrakonForge",
     "ServerVersion": "*",
-    "Dependencies": {},
-    "OptionalDependencies": {},
+    "Dependencies": {
+        
+    },
+    "OptionalDependencies": {
+        
+    },
     "DisabledByDefault": false,
     "IncludesAssetPack": true,
-    "Main": "io.github.drakonforge.ExamplePlugin"
+    "Main": "io.github.drakonforge.exampleplugin.ExamplePlugin"
 }

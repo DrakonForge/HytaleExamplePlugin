@@ -1,4 +1,4 @@
-package io.github.drakonforge;
+package io.github.drakonforge.exampleplugin;
 
 import com.hypixel.hytale.protocol.GameMode;
 import com.hypixel.hytale.server.core.Message;
