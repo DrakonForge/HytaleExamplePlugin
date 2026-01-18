@@ -13,15 +13,27 @@ import javax.annotation.Nonnull;
 public class ExamplePlugin extends JavaPlugin {
 
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+    private static ExamplePlugin instance;
+
+    public static ExamplePlugin getInstance() {
+        return instance;
+    }
 
     public ExamplePlugin(@Nonnull JavaPluginInit init) {
         super(init);
-        LOGGER.atInfo().log("Hello from " + this.getName() + " version " + this.getManifest().getVersion().toString());
     }
 
     @Override
     protected void setup() {
-        LOGGER.atInfo().log("Setting up plugin " + this.getName());
+        instance = this;
+        LOGGER.atInfo().log("Setting up plugin " + this.getName() + " version " + this.getManifest().getVersion().toString());
+
+        // Run /test to confirm example plugin is working
         this.getCommandRegistry().registerCommand(new ExampleCommand(this.getName(), this.getManifest().getVersion().toString()));
+    }
+
+    @Override
+    protected void start() {
+        LOGGER.atInfo().log("Starting plugin " + this.getName());
     }
 }
