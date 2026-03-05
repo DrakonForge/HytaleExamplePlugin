@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.3'
 }
 
+
+import groovy.json.JsonOutput
 import org.gradle.internal.os.OperatingSystem
 
 ext {
@@ -26,11 +28,13 @@ ext {
     }
 }
 
-if (!project.hasProperty('hytaleHome')) {
-    throw new GradleException('Your Hytale install could not be detected automatically. If you are on an unsupported platform or using a custom install location, please define the install location using the hytale_home property.');
-}
-else if (!file(project.findProperty('hytaleHome')).exists()) {
-    throw new GradleException("Failed to find Hytale at the expected location. Please make sure you have installed the game. The expected location can be changed using the hytale_home property. Currently looking in ${project.findProperty('hytaleHome')}")
+if (use_local_install.toBoolean()) {
+    // Hytale home is required
+    if (!project.hasProperty('hytaleHome')) {
+        throw new GradleException('Your Hytale install could not be detected automatically. If you are on an unsupported platform or using a custom install location, please define the install location using the hytale_home property.');
+    } else if (!file(project.findProperty('hytaleHome')).exists()) {
+        throw new GradleException("Failed to find Hytale at the expected location. Please make sure you have installed the game. The expected location can be changed using the hytale_home property. Currently looking in ${project.findProperty('hytaleHome')}")
+    }
 }
 
 java {
@@ -44,11 +48,33 @@ javadoc {
     options.addStringOption('Xdoclint:-missing', '-quiet')
 }
 
+repositories {
+    mavenCentral()
+    maven { url = "https://www.cursemaven.com" }
+    if (patchline == "pre-release") {
+        maven {
+            name = "hytale"
+            url = uri("https://maven.hytale.com/pre-release")
+        }
+    } else {
+        maven {
+            name = "hytale"
+            url = uri("https://maven.hytale.com/release")
+        }
+    }
+}
+
 // Adds the Hytale server as a build dependency, allowing you to reference and
 // compile against their code. This requires you to have Hytale installed using
 // the official launcher for now.
 dependencies {
-    implementation(files("$hytaleHome/install/$patchline/package/game/latest/Server/HytaleServer.jar"))
+    if (use_local_install.toBoolean()) {
+        implementation(files("$hytaleHome/install/$patchline/package/game/latest/Server/HytaleServer.jar"))
+    } else {
+        implementation("com.hypixel.hytale:Server:+");
+    }
+    implementation "curse.maven:hyui-1431415:$hy_ui_version"
+    implementation "curse.maven:hytalor-1440123:$hytalor_version"
 }
 
 // Create the working directory to run the server if it does not already exist.
@@ -105,6 +131,7 @@ idea.project.settings.runConfigurations {
 }
 
 // Creates a launch.json file for VSCode with the same configuration
+// Only works when running local install
 tasks.register('generateVSCodeLaunch') {
     def vscodeDir = file("$projectDir/.vscode")
     def launchFile = file("$vscodeDir/launch.json")
@@ -114,18 +141,18 @@ tasks.register('generateVSCodeLaunch') {
         }
         def programParams = createServerRunArguments("\${workspaceFolder}")
         def launchConfig = [
-            version: "0.2.0",
-            configurations: [
-                [
-                    type: "java",
-                    name: "HytaleServer",
-                    request: "launch",
-                    mainClass: "com.hypixel.hytale.Main",
-                    args: programParams,
-                    cwd: "\${workspaceFolder}/run"
+                version: "0.2.0",
+                configurations: [
+                        [
+                                type: "java",
+                                name: "HytaleServer",
+                                request: "launch",
+                                mainClass: "com.hypixel.hytale.Main",
+                                args: programParams,
+                                cwd: "\${workspaceFolder}/run"
+                        ]
                 ]
-            ]
         ]
-        launchFile.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(launchConfig))
+        launchFile.text = JsonOutput.prettyPrint(JsonOutput.toJson(launchConfig))
     }
 }
