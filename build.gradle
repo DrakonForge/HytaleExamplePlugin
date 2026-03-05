@@ -5,6 +5,7 @@ plugins {
 
 
 import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
 import org.gradle.internal.os.OperatingSystem
 
 ext {
@@ -92,10 +93,10 @@ tasks.register('updatePluginManifest') {
         if (!manifestFile.exists()) {
             throw new GradleException("Could not find manifest.json at ${manifestFile.path}!")
         }
-        def manifestJson = new groovy.json.JsonSlurper().parseText(manifestFile.text)
+        def manifestJson = new JsonSlurper().parseText(manifestFile.text)
         manifestJson.Version = version
         manifestJson.IncludesAssetPack = includes_pack.toBoolean()
-        manifestFile.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(manifestJson))
+        manifestFile.text = JsonOutput.prettyPrint(JsonOutput.toJson(manifestJson))
     }
 }
 
